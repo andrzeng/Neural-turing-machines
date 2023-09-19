@@ -1,12 +1,32 @@
 # NTMs
 (Work in progress)
 
-
-Implementation of Neural Turing Machines (Graves et al., 2014) in JAX and Flax
+This repository contains two implementations of a Neural Turing Machine (Graves et al., 2014). One is in JAX and Flax, the other is in Pytorch.
 
 To run:
+
+
 ```
 pip install -r requirements.txt
+```
+
+
+run either
+
+
+```
+cd JAX
+```
+
+
+or 
+
+
+```
+cd Pytorch
+```
+
+```
 python main.py
 ```
 

@@ -1,3 +1,5 @@
 jaxlib
 jax
 flax
+torch
+matplotlib
