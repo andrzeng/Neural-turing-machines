@@ -1,6 +1,7 @@
 import jax.numpy as jnp
 from flax import linen as nn
 from head import ReadHead, WriteHead
+from typing import List
 
 class NTM(nn.Module):
     dim_memory: int
@@ -13,18 +14,44 @@ class NTM(nn.Module):
     batch_size: int
     dim_external_input: int
 
-    def setup(self):
+    def setup(self) -> None:
+        """
+            Description:
+                Initialize model parameters
+            Args:
+                None
+            Returns:
+                None
+        """
         self.controller = nn.Dense(self.dim_controller_output)
         self.read_heads = [ReadHead(self.dim_memory, self.num_memory_locations, self.shift_radius) for _ in range(self.num_read_heads)]
         self.write_heads = [WriteHead(self.dim_memory, self.num_memory_locations, self.shift_radius) for _ in range(self.num_write_heads)]
         self.output_linear = nn.Dense(self.dim_NTM_output)
 
     def __call__(self,
-                 external_input,
-                 past_readings,
-                 past_read_w,
-                 past_write_w,
-                 memory):
+                 external_input: jnp.array,
+                 past_readings: jnp.array,
+                 past_read_w: jnp.array,
+                 past_write_w: jnp.array,
+                 memory: jnp.array) -> list[jnp.array, jnp.array, jnp.array, jnp.array, jnp.array]:
+        """
+            Description:
+                The forward function of the NTM
+
+            Args:
+                external_input (jnp.array): External input to the NTM
+                past_readings (jnp.array): Past outputs of the read heads
+                past_read_w (jnp.array): Past read head weightings
+                past_write_w (jnp.array): Past write head weightings
+                memory (jnp.array): The memory to be operated on
+
+            Returns:
+                jnp.array: the NTM's output
+                jnp.array: the modified memory
+                jnp.array: the output of the read heads
+                jnp.array: the weightings of the read heads
+                jnp.array: the weightigns of the write heads
+        """
         if(past_readings is None):
             past_readings = jnp.zeros((self.batch_size, self.num_read_heads, self.dim_memory))
         past_readings = past_readings.reshape(self.batch_size, -1)

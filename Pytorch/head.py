@@ -24,7 +24,7 @@ class NTMHead(nn.Module):
                 shift_radius (int): The possible shift radius of the head
 
             Returns:
-                An NTMHead object
+                NTMHead: An NTMHead object
         """
 
         super().__init__()
@@ -51,7 +51,7 @@ class NTMHead(nn.Module):
                 memory (Memory): A Memory object to be read from
 
             Returns:
-                A torch.Tensor containing the read vector
+                torch.Tensor: the read vector
         """
         return w_t @ memory.content
 
@@ -69,7 +69,7 @@ class NTMHead(nn.Module):
                 previous_weighting (torch.Tensor): The weighting produced by this head in the previous step
 
             Returns:
-                A tensor representing the combined location- and content-based weighting
+                torch.Tensor: the combined location- and content-based weighting
         """
         key_v, key_s, gate, shift_w, sharpening = self.input_to_weighting_factors(input_from_controller).split(self.split_sizes)
         

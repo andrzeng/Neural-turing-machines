@@ -31,8 +31,8 @@ if __name__ == '__main__':
             target = pattern.repeat(num_copies).reshape(num_copies, 6)
 
             model.memory.init_memory_constant(0)
-            _, _, read_weightings, write_weightings = model.forward(pattern, None, None, None)
-            _, _, read_weightings, write_weightings = model.forward(delimiter, read_outputs, read_weightings, write_weightings)
+            output, read_outputs, read_weightings, write_weightings = model.forward(pattern, None, None, None)
+            output, read_outputs, read_weightings, write_weightings = model.forward(delimiter, read_outputs, read_weightings, write_weightings)
 
             outputs = []
             for c_index in range(num_copies):

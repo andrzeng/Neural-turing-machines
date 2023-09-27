@@ -31,7 +31,7 @@ class FFNTM(nn.Module):
                 shift_radius (int): The max possible shift radius during location-based addressing
             
             Returns:
-                A Neural Turing Machine with the specified parameters
+                FFNTM: A Neural Turing Machine with the specified parameters
         """
         
         super().__init__()
@@ -70,12 +70,10 @@ class FFNTM(nn.Module):
                                                             If this is the first pass, then they are None
             
             Returns:
-                Format: a tuple of a torch.Tensor and three lists:
-
-                NTM_output (torch.Tensor): the final output of the NTM
-                current_read_head_outputs (List[torch.Tensor])): the output of each read head, collected into a list 
-                current_read_head_weightings (List[torch.Tensor])): the weighting of each read head, collected into a list 
-                current_write_head_weightings (List[torch.Tensor])): the output of each write head, collected into a list 
+                torch.Tensor: the final output of the NTM
+                List[torch.Tensor]: the output of each read head, collected into a list 
+                List[torch.Tensor]: the weighting of each read head, collected into a list 
+                List[torch.Tensor]: the output of each write head, collected into a list 
         
         """
 

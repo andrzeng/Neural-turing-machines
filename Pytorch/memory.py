@@ -14,7 +14,7 @@ class Memory(nn.Module):
                 num_memory_locations (int): Number of memory locations
 
             Returns:
-                A Memory object
+                Memory: A Memory object
         """
         super().__init__()
         self.content = torch.randn(num_memory_locations, dim, requires_grad=True)
