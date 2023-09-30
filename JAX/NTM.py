@@ -80,7 +80,7 @@ class NTM(nn.Module):
             memory, weighting = head(controller_output, memory, previous_w)
             new_write_w.append(weighting)
 
-        input_for_output_fc = jnp.concatenate([jnp.concatenate(new_write_w, axis=1), jnp.concatenate(read_out, axis=1)], axis=1)
+        input_for_output_fc = jnp.concatenate([controller_output, jnp.concatenate(read_out, axis=1)], axis=1)
         NTM_output = self.output_linear(input_for_output_fc)
         read_out = jnp.concatenate(read_out, axis=1)
 
